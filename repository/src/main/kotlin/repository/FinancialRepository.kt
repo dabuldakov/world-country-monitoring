@@ -1,4 +1,4 @@
 package repository
 
-class FinancialRepository {
+interface FinancialRepository {
 }
