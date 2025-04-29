@@ -1,4 +1,4 @@
-package entity
+package org.wcm.entity
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -17,6 +17,7 @@ data class InternationalReserve(
     val amount: Long,
     val foreignExchange: Long,
     val monetaryGold: Long,
+    val country: Long,
     @CreationTimestamp
     val date: Date
 )

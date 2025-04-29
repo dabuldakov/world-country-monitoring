@@ -1,7 +1,6 @@
-package org.example
+package org.wcm
 
 import org.springframework.boot.test.context.SpringBootTest
-import kotlin.test.Test
 
 @SpringBootTest
 class ApplicationTest {
