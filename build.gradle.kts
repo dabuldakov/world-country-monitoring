@@ -1,56 +1,45 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+val jvmVersion = 21
+val javaVersion = JavaVersion.VERSION_21
 
 plugins {
-    kotlin("jvm") version "1.9.25"
-    kotlin("plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.5.0-SNAPSHOT"
-    id("io.spring.dependency-management") version "1.1.7"
-    kotlin("plugin.jpa") version "1.9.25"
+    kotlin("jvm")
+    kotlin("kapt")
 }
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
+allprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.kotlin.kapt")
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+    java.sourceCompatibility = javaVersion
+
+    repositories {
+        mavenLocal()
+        maven { url = uri("https://nexus.gts.rus.socgen/repository/maven-public") }
+        gradlePluginPortal()
+        maven { url = uri("https://repo.spring.io/milestone") }
+        maven { url = uri("https://repo.spring.io/snapshot") }
     }
-}
 
-repositories {
-    mavenCentral()
-    maven { url = uri("https://repo.spring.io/milestone") }
-    maven { url = uri("https://repo.spring.io/snapshot") }
-}
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
+    dependencies {
+        implementation("org.springframework.boot:spring-boot-starter:${property("springBootVersion")}")
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        testImplementation("org.mockito.kotlin:mockito-kotlin:${property("mockitoKotlinVersion")}")
+        testImplementation("org.mockito:mockito-core:${property("mockitoVersion")}")
+        testImplementation("org.mockito:mockito-junit-jupiter:${property("mockitoVersion")}")
+        testImplementation("org.jetbrains.kotlin:kotlin-test")
     }
-}
 
-allOpen {
-    annotation("jakarta.persistence.Entity")
-    annotation("jakarta.persistence.MappedSuperclass")
-    annotation("jakarta.persistence.Embeddable")
-}
+    kotlin {
+        jvmToolchain(jvmVersion)
+        compilerOptions {
+            freeCompilerArgs.addAll(
+                "-Xjsr305=strict",
+                "-Xjvm-default=all",
+            )
+        }
+    }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile>().all {
-    kotlinOptions {
-        jvmTarget = "21"
+    tasks.test {
+        useJUnitPlatform()
     }
 }

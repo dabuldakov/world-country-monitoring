@@ -1,19 +1,13 @@
 plugins {
-    kotlin("jvm") version "1.9.25"
-}
-
-group = "org.example"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+    kotlin("plugin.jpa")
+    kotlin("plugin.spring")
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
+    implementation(project(":domain"))
 
-tasks.test {
-    useJUnitPlatform()
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${property("springBootVersion")}")
+    runtimeOnly("org.flywaydb:flyway-core:${property("flywayVersion")}")
+    runtimeOnly("org.postgresql:postgresql:${property("postgreSqlVersion")}")
+
 }
