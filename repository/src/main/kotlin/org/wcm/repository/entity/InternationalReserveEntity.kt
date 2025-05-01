@@ -1,0 +1,32 @@
+package org.wcm.repository.entity
+
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.SequenceGenerator
+import jakarta.persistence.Table
+import org.hibernate.annotations.CreationTimestamp
+import java.util.*
+
+@Table(name = "international_reserve")
+@Entity
+data class InternationalReserveEntity(
+    @Id
+    @SequenceGenerator(
+        name = "InternationalReserveEntity.idSequence",
+        sequenceName = "international_reserve_id_seq",
+        allocationSize = 1,
+    )
+    @GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "InternationalReserveEntity.idSequence",
+    )
+    val id: Long? = null,
+    val amount: Long,
+    val foreignExchange: Long,
+    val monetaryGold: Long,
+    val countryCode: String,
+    @CreationTimestamp
+    val date: Date
+)

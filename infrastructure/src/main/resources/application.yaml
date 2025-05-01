@@ -1,0 +1,19 @@
+application:
+  swaggerApi: ${SWAGGER_API_ACCESS:true}
+
+spring:
+  datasource:
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: ${MAXIMUM_POOL_SIZE_DB:1}
+      register-mbeans: true
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    baseline-on-migrate: true
+    clean-disabled: true

@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: wcmdb
+    volumes:
+      - ./init_wcmdb.sql:/docker-entrypoint-initdb.d/init_wcmdb.sql
+      - postgres_data:/var/lib/postgresql/data # Для сохранения данных между перезапусками
+
+volumes:
+  postgres_data:
