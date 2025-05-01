@@ -6,9 +6,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: wcmdb
+      POSTGRES_DB: postgres
     volumes:
-      - ./init_wcmdb.sql:/docker-entrypoint-initdb.d/init_wcmdb.sql
+      - ./init_postgres_db.sql:/docker-entrypoint-initdb.d/init_postgres_db.sql
       - postgres_data:/var/lib/postgresql/data # Для сохранения данных между перезапусками
 
 volumes:

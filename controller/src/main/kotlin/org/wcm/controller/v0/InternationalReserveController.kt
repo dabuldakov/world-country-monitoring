@@ -13,7 +13,7 @@ import org.wcm.domain.model.InternationalReserve
 import org.wcm.usecase.api.InternationalReserveApi
 
 @Tag(name = "InternationalReserveController_v0", description = "Контроллер международных резервов v0")
-@RequestMapping(PathConstant.INTERNATIONAL_RESERVE + "/v0")
+@RequestMapping(PathConstant.VO + PathConstant.INTERNATIONAL_RESERVE)
 @RestController("InternationalReserveController_v0")
 class InternationalReserveController(
     private val internationalReserveApi: InternationalReserveApi
