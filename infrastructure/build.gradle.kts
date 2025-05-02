@@ -7,6 +7,8 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":controller"))
     implementation(project(":repository"))
+    implementation(project(":usecase"))
+    implementation(project(":usecase-api"))
 
 
     implementation("org.springframework.data:spring-data-jpa:${property("springBootVersion")}")

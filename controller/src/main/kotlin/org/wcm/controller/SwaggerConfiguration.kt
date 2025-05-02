@@ -13,7 +13,7 @@ open class SwaggerConfiguration {
     open fun wcmGroupedOpenApi(): GroupedOpenApi {
         return GroupedOpenApi.builder()
             .group("WorldCountryMonitoring")
-            .pathsToMatch(PathConstant.INTERNATIONAL_RESERVE + "/**")
+            .pathsToMatch(PathConstant.BASE + "/**")
             .displayName("World Country Monitoring")
             .build()
     }

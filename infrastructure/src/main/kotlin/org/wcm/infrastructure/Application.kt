@@ -5,7 +5,7 @@ import org.springframework.boot.runApplication
 import java.util.*
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ["org.wcm"])
 internal class Application
 
 fun main(args: Array<String>) {
