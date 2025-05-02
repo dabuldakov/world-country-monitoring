@@ -11,6 +11,6 @@ CREATE TABLE international_reserve (
                                        foreign_exchange BIGINT NOT NULL,
                                        monetary_gold BIGINT NOT NULL,
                                        country_code VARCHAR(3) NOT NULL,
-                                       date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                                       date DATE NOT NULL,
                                        FOREIGN KEY (country_code) REFERENCES country(code), -- Объявление внешнего ключа
                                        UNIQUE (date, country_code));  -- Уникальное ограничение для сочетания date и country_code

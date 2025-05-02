@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface InternationalReserveRepository : JpaRepository<InternationalReserveEntity, Long> {
 
-    fun findAllByCountryCode(countryCode: String): List<InternationalReserveEntity>
+    fun findAllByCountryCodeOrderByDate(countryCode: String): List<InternationalReserveEntity>
 }

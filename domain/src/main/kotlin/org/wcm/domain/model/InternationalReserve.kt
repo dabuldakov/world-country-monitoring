@@ -1,6 +1,6 @@
 package org.wcm.domain.model
 
-import java.util.*
+import java.time.LocalDate
 
 data class InternationalReserve(
     val id: Long?,
@@ -8,5 +8,5 @@ data class InternationalReserve(
     val foreignExchange: Long,
     val monetaryGold: Long,
     val countryCode: String,
-    val date: Date
+    val date: LocalDate
 )

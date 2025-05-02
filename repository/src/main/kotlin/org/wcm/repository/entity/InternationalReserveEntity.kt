@@ -6,8 +6,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.SequenceGenerator
 import jakarta.persistence.Table
-import org.hibernate.annotations.CreationTimestamp
-import java.util.*
+import java.time.LocalDate
 
 @Table(name = "international_reserve")
 @Entity
@@ -27,6 +26,5 @@ data class InternationalReserveEntity(
     val foreignExchange: Long,
     val monetaryGold: Long,
     val countryCode: String,
-    @CreationTimestamp
-    val date: Date
+    val date: LocalDate
 )

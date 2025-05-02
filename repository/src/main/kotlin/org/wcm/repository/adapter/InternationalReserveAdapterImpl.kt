@@ -21,6 +21,6 @@ class InternationalReserveAdapterImpl(
 
     @Transactional(readOnly = true)
     override fun getByCountryCode(countryCode: String): List<InternationalReserve> {
-        return repository.findAllByCountryCode(countryCode).map { mapper.toDomain(it) }
+        return repository.findAllByCountryCodeOrderByDate(countryCode).map { mapper.toDomain(it) }
     }
 }
