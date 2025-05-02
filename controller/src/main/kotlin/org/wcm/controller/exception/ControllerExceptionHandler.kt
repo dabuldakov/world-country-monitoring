@@ -1,4 +1,4 @@
-package org.wcm.controller
+package org.wcm.controller.exception
 
 import org.springdoc.api.ErrorMessage
 import org.springframework.http.HttpStatus
