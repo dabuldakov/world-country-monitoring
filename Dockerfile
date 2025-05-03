@@ -23,7 +23,7 @@ WORKDIR /app
 
 # Скопируйте скомпилированное приложение из стадии сборки
 # COPY /infrastructure/build/libs/infrastructure.jar world-country-monitoring.jar
-COPY /build/libs/world-country-monitoring.jar world-country-monitoring.jar
+COPY /app/build/libs/world-country-monitoring.jar world-country-monitoring.jar
 
 # Укажите команду для запуска приложения
 ENTRYPOINT ["java", "-jar", "world-country-monitoring.jar"]
