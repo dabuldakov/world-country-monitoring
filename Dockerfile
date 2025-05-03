@@ -26,4 +26,4 @@ WORKDIR /app
 COPY /build/libs/world-country-monitoring.jar world-country-monitoring.jar
 
 # Укажите команду для запуска приложения
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "world-country-monitoring.jar"]
