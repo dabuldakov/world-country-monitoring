@@ -10,6 +10,7 @@ CREATE TABLE international_reserve (
                                        amount BIGINT NOT NULL,
                                        foreign_exchange BIGINT NOT NULL,
                                        monetary_gold BIGINT NOT NULL,
+                                       monetary_gold_tonn FLOAT,
                                        country_code VARCHAR(3) NOT NULL,
                                        date DATE NOT NULL,
                                        FOREIGN KEY (country_code) REFERENCES country(code), -- Объявление внешнего ключа

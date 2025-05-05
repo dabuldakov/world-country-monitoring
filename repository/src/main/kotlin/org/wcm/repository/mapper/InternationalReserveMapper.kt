@@ -13,6 +13,7 @@ class InternationalReserveMapper {
             amount = internationalReserveEntity.amount,
             foreignExchange = internationalReserveEntity.foreignExchange,
             monetaryGold = internationalReserveEntity.monetaryGold,
+            monetaryGoldTonn = internationalReserveEntity.monetaryGoldTonn,
             countryCode = internationalReserveEntity.countryCode,
             date = internationalReserveEntity.date
         )
