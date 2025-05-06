@@ -21,8 +21,7 @@ class InternationalReserveController(
 
     @Operation(
         summary = "Получить международный резерв",
-        operationId = "get",
-        //security = [SecurityRequirement(name = "bearerAuth")]
+        operationId = "get"
     )
     @GetMapping(value = ["/{id}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun get(@PathVariable id: Long): ResponseEntity<InternationalReserve>{
@@ -31,8 +30,7 @@ class InternationalReserveController(
 
     @Operation(
         summary = "Получить международный резерв по стране",
-        operationId = "getByCountry",
-        //security = [SecurityRequirement(name = "bearerAuth")]
+        operationId = "getByCountry"
     )
     @GetMapping(value = ["country/{country}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getByCountry(@PathVariable country: String): ResponseEntity<List<InternationalReserve>>{

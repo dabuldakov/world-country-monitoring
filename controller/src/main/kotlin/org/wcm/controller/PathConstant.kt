@@ -6,5 +6,6 @@ class PathConstant {
         const val BASE = "/api/wcm$VO"
         const val INTERNATIONAL_RESERVE = "$BASE/international-reserve"
         const val GROSS_DOMESTIC_PRODUCT = "$BASE/gross-domestic-product"
+        const val DEPT = "$BASE/dept"
     }
 }
