@@ -22,8 +22,8 @@ class GrossDomesticProductAdapterImpl(
         gDPs.forEach { gDP ->
             if (gDP.current!= null) {
                 repository.findFirstByCountryCodeAndDate(gDP.countryCode, gDP.date)?.let { gDPEntity ->
-                    mapper.updateCurrent(gDPEntity, gDP.current!!)
-                    repository.save(gDPEntity)
+                    val updateCurrent = mapper.updateCurrent(gDPEntity, gDP.current!!)
+                    repository.save(updateCurrent)
                 } ?: repository.save(mapper.toEntity(gDP))
             }
         }

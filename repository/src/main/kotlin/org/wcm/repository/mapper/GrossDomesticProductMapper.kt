@@ -27,7 +27,7 @@ class GrossDomesticProductMapper {
             countryCode = domain.countryCode
         )
 
-    fun updateCurrent(entity: GrossDomesticProductEntity, current: Double) {
+    fun updateCurrent(entity: GrossDomesticProductEntity, current: Double) =
         GrossDomesticProductEntity(
             id = entity.id,
             absolut = entity.absolut,
@@ -36,5 +36,4 @@ class GrossDomesticProductMapper {
             date = entity.date,
             countryCode = entity.countryCode
         )
-    }
 }
