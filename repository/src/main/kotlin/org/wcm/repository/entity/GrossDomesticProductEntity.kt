@@ -1,5 +1,6 @@
 package org.wcm.repository.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -24,6 +25,8 @@ data class GrossDomesticProductEntity(
     val id: Long? = null,
     val absolut: Double? = null,
     val purchasingPowerParities: Double? = null,
+    @Column(name = "current_amount")
+    val current: Double? = null,
     val countryCode: String,
     val date: LocalDate,
 )

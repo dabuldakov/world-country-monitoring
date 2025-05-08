@@ -1,5 +1,7 @@
 application:
   swaggerApi: ${SWAGGER_API_ACCESS:true}
+  scheduling:
+    update-all-countries-gdp: "0 0 12 1 * ?"
 
 spring:
   datasource:

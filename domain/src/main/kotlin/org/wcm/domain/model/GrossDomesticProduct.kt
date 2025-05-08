@@ -6,6 +6,7 @@ data class GrossDomesticProduct(
     val id: Long? = null,
     val absolut: Double? = null,
     val purchasingPowerParities: Double? = null,
+    val current: Double? = null,
     val countryCode: String,
     val date: LocalDate
 )

@@ -22,6 +22,7 @@ CREATE TABLE gross_domestic_product
     id                        BIGSERIAL PRIMARY KEY,
     absolut                   FLOAT,
     purchasing_power_parities FLOAT,
+    current_amount            FLOAT,
     country_code              VARCHAR(3) NOT NULL,
     date                      DATE       NOT NULL,
     FOREIGN KEY (country_code) REFERENCES country (code),

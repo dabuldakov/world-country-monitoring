@@ -6,6 +6,8 @@ plugins {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":controller"))
+    implementation(project(":controller-scheduler"))
+    implementation(project(":rest-client"))
     implementation(project(":repository"))
     implementation(project(":usecase"))
     implementation(project(":usecase-api"))
