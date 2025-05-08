@@ -1,6 +1,9 @@
 package org.wcm.rest.client.worldbank.model
 
-data class GDPValue(
-    val OBS_VALUE: String,
-    val TIME_PERIOD: String,
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class GDPValue @JsonCreator constructor(
+    @JsonProperty("OBS_VALUE") val value: String,
+    @JsonProperty("TIME_PERIOD") val year: String,
 )

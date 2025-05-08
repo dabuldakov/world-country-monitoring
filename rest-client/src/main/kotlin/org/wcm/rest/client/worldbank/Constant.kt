@@ -5,7 +5,7 @@ class Constant {
     companion object {
         const val API_URL = "https://data360api.worldbank.org"
         const val DATA360_PATH = "/data360/data"
-        const val DATABASE = "DATABASE"
+        const val DATABASE_ID = "DATABASE_ID"
         const val DATABASE_WB = "WB_WDI"
         const val INDICATOR = "INDICATOR"
         const val INDICATOR_GDP = "WB_WDI_NY_GDP_MKTP_CD"

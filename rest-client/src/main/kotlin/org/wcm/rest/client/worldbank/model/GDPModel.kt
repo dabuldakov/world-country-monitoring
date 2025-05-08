@@ -1,8 +1,11 @@
 package org.wcm.rest.client.worldbank.model
 
-data class GDPModel(
-    val count: Int,
-    val value: List<GDPValue>
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class GDPModel @JsonCreator constructor(
+    @JsonProperty("count") val count: Int,
+    @JsonProperty("value") val value: List<GDPValue>
 )
 
 

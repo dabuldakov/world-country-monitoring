@@ -19,4 +19,9 @@ class RefillUseCase(
              .let { gdp -> gDPAdapter.saveAll(gdp) }
         }
     }
+
+    override fun forCountryGDP(countryCode: String) {
+        worldBankApi.getAllHistoryGDPbyCountry(countryCode)
+            .let { gdp -> gDPAdapter.saveAll(gdp) }
+    }
 }
