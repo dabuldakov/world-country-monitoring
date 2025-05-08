@@ -18,12 +18,12 @@ class DeptGrossUseCase(
         return grossDomesticProductAdapter.getByCountryCode(countryCode).mapNotNull { grossDomesticProduct ->
             val dept = localDateDeptMap[grossDomesticProduct.date]
             if (dept != null) {
-                if (grossDomesticProduct.absolut != null &&
+                if (grossDomesticProduct.current != null &&
                     dept.foreign != null &&
-                    grossDomesticProduct.absolut != 0.0
+                    grossDomesticProduct.current != 0.0
                 ) {
                     DeptGross(
-                        ratioPercentage = dept.foreign!! / grossDomesticProduct.absolut!! * 100,
+                        ratioPercentage = dept.foreign!! / grossDomesticProduct.current!! * 100,
                         date = dept.date
                     )
                 } else {
