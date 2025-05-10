@@ -29,10 +29,11 @@ CREATE TABLE gross_domestic_product
     UNIQUE (date, country_code)
 );
 
-CREATE TABLE dept
+CREATE TABLE debt
 (
     id                        BIGSERIAL PRIMARY KEY,
     foreign_amount            FLOAT,
+    percentage_to_gdp         FLOAT,
     country_code              VARCHAR(3) NOT NULL,
     date                      DATE       NOT NULL,
     FOREIGN KEY (country_code) REFERENCES country (code),

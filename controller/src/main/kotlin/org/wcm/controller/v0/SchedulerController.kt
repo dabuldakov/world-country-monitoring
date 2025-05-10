@@ -18,22 +18,22 @@ class SchedulerController(
 ) {
 
     @Operation(
-        summary = "updateAllGDP",
-        operationId = "updateAllGDP"
+        summary = "updateAllCountries",
+        operationId = "updateAllCountries"
     )
-    @GetMapping(value = ["/update-gdp/all"])
-    fun updateAllGDP(): ResponseEntity<String> {
-        refillApi.forAllCountriesGDP()
+    @GetMapping(value = ["/update/all"])
+    fun updateAllCountries(): ResponseEntity<String> {
+        refillApi.forAllCountries()
         return ResponseEntity.ok("OK")
     }
 
     @Operation(
-        summary = "updateGDP",
-        operationId = "updateGDP"
+        summary = "update GDP, percentage Debt to GDP",
+        operationId = "updateCountry"
     )
-    @GetMapping(value = ["/update-gdp/{code}"])
-    fun updateGDP(@PathVariable code: String): ResponseEntity<String> {
-        refillApi.forCountryGDP(code)
+    @GetMapping(value = ["/update/country/{code}"])
+    fun updateCountry(@PathVariable code: String): ResponseEntity<String> {
+        refillApi.forCountry(code)
         return ResponseEntity.ok("OK")
     }
 }

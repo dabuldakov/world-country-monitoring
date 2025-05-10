@@ -2,7 +2,7 @@ package org.wcm.domain.model
 
 import java.time.LocalDate
 
-data class DeptGross(
+data class DebtGross(
     val ratioPercentage: Double,
     val date: LocalDate
 )

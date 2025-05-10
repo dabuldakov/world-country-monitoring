@@ -2,7 +2,7 @@ package org.wcm.usecase.api
 
 interface RefillApi {
 
-    fun forAllCountriesGDP()
+    fun forAllCountries()
 
-    fun forCountryGDP(countryCode: String)
+    fun forCountry(countryCode: String)
 }

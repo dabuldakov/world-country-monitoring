@@ -1,17 +1,28 @@
 package org.wcm.rest.client.worldbank.mapper
 
 import org.springframework.stereotype.Component
+import org.wcm.domain.model.Debt
 import org.wcm.domain.model.GrossDomesticProduct
-import org.wcm.rest.client.worldbank.model.GDPModel
+import org.wcm.rest.client.worldbank.model.WorldBankModel
 import java.time.LocalDate
 
 @Component
 class WorldBankMapper {
 
-    fun toDomain(gdpModel: GDPModel, countryCode: String): List<GrossDomesticProduct> {
-        return gdpModel.value.map { data ->
+    fun toDomainCurrentGDP(worldBankModel: WorldBankModel, countryCode: String): List<GrossDomesticProduct> {
+        return worldBankModel.value.map { data ->
             GrossDomesticProduct(
                 current = doubleValue(data.value),
+                countryCode = countryCode,
+                date = convertYearToLocalDate(data.year)
+            )
+        }
+    }
+
+    fun toDomainPercentageToGDP(worldBankModel: WorldBankModel, countryCode: String): List<Debt> {
+        return worldBankModel.value.map { data ->
+            Debt(
+                percentageToGDP = doubleValue(data.value),
                 countryCode = countryCode,
                 date = convertYearToLocalDate(data.year)
             )

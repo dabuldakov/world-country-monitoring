@@ -11,6 +11,6 @@ class ExecutorScheduler(
 
     @Scheduled(cron = "\${application.scheduling.update-all-countries-gdp}")
     fun updateGDPForAllCountries() {
-        refillApi.forAllCountriesGDP()
+        refillApi.forAllCountries()
     }
 }
