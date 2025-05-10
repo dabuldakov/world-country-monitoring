@@ -1,10 +1,10 @@
 package org.wcm.rest.client.worldbank.mapper
 
 import org.springframework.stereotype.Component
+import org.wcm.domain.Utils
 import org.wcm.domain.model.Debt
 import org.wcm.domain.model.GrossDomesticProduct
 import org.wcm.rest.client.worldbank.model.WorldBankModel
-import java.time.LocalDate
 
 @Component
 class WorldBankMapper {
@@ -14,7 +14,7 @@ class WorldBankMapper {
             GrossDomesticProduct(
                 current = doubleValue(data.value),
                 countryCode = countryCode,
-                date = convertYearToLocalDate(data.year)
+                date = Utils.convertYearToLocalDate(data.year)
             )
         }
     }
@@ -24,13 +24,10 @@ class WorldBankMapper {
             Debt(
                 percentageToGDP = doubleValue(data.value),
                 countryCode = countryCode,
-                date = convertYearToLocalDate(data.year)
+                date = Utils.convertYearToLocalDate(data.year)
             )
         }
     }
-
-    private fun convertYearToLocalDate(year: String): LocalDate =
-        LocalDate.of(year.toInt(), 12, 1)
 
     private fun doubleValue(number: String): Double? =
         try {

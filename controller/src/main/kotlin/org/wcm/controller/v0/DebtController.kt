@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.wcm.controller.PathConstant
+import org.wcm.domain.Utils
 import org.wcm.domain.model.Debt
 import org.wcm.domain.model.DebtGross
 import org.wcm.usecase.api.DebtApi
@@ -29,6 +30,15 @@ class DebtController(
     @GetMapping(value = ["country/{country}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getByCountry(@PathVariable country: String): ResponseEntity<List<Debt>> {
         return ResponseEntity.ok(api.getByCountryCode(country))
+    }
+
+    @Operation(
+        summary = "Get debts for all countries by year",
+        operationId = "getAllCountriesByYear"
+    )
+    @GetMapping(value = ["year/{year}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getAllCountriesByYear(@PathVariable year: String): ResponseEntity<List<Debt>> {
+        return ResponseEntity.ok(api.getAllCountriesByYear(Utils.convertYearToLocalDate(year)))
     }
 
     @Operation(

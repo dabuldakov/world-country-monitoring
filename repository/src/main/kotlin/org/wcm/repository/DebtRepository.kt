@@ -9,4 +9,5 @@ import java.time.LocalDate
 interface DebtRepository : JpaRepository<DebtEntity, Long> {
     fun findAllByCountryCodeOrderByDate(countryCode: String): List<DebtEntity>
     fun findFirstByCountryCodeAndDate(countryCode: String, date: LocalDate): DebtEntity?
+    fun findAllByDateOrderByPercentageToGDP(date: LocalDate): List<DebtEntity>
 }
