@@ -6,6 +6,7 @@ import org.wcm.domain.api.GrossDomesticProductAdapter
 import org.wcm.domain.model.GrossDomesticProduct
 import org.wcm.repository.GrossDomesticProductRepository
 import org.wcm.repository.mapper.GrossDomesticProductMapper
+import java.time.LocalDate
 
 @Component
 class GrossDomesticProductAdapterImpl(
@@ -27,5 +28,10 @@ class GrossDomesticProductAdapterImpl(
                 } ?: repository.save(mapper.toEntity(gDP))
             }
         }
+    }
+
+    @Transactional(readOnly = true)
+    override fun findAllCountriesByDate(date: LocalDate): List<GrossDomesticProduct> {
+        return repository.findAllByDateOrderByCurrent(date).map { mapper.toDomain(it) }
     }
 }

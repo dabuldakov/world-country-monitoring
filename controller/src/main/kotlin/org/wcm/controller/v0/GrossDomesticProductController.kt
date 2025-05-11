@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.wcm.controller.PathConstant
+import org.wcm.domain.Utils
 import org.wcm.domain.model.GrossDomesticProduct
 import org.wcm.usecase.api.GrossDomesticProductApi
 
@@ -24,6 +25,15 @@ class GrossDomesticProductController(
     )
     @GetMapping(value = ["country/{country}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getByCountry(@PathVariable country: String): ResponseEntity<List<GrossDomesticProduct>> {
-        return ResponseEntity.ok(usecase.getByCountryCode(country))
+        return ResponseEntity.ok(usecase.findAllByCountryCode(country))
+    }
+
+    @Operation(
+        summary = "Получить ВВП всех стран по году",
+        operationId = "getAllCountiesByDate"
+    )
+    @GetMapping(value = ["year/{year}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getAllCountiesByDate(@PathVariable year: String): ResponseEntity<List<GrossDomesticProduct>> {
+        return ResponseEntity.ok(usecase.findAllCountriesByDate(Utils.convertYearToLocalDate(year)))
     }
 }
