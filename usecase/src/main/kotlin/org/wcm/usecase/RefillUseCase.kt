@@ -1,5 +1,7 @@
 package org.wcm.usecase
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import org.wcm.domain.api.CountryAdapter
 import org.wcm.domain.api.DebtAdapter
@@ -15,8 +17,13 @@ class RefillUseCase(
     private val debtAdapter: DebtAdapter,
 ) : RefillApi {
 
+    private val logger: Logger = LoggerFactory.getLogger(RefillUseCase::class.java)
+
     override fun forAllCountries() {
-        countryAdapter.getAll().forEach { forCountry(it.code) }
+        countryAdapter.getAll().forEach {
+            forCountry(it.code)
+            logger.info("Updated for ${it.code}")
+        }
     }
 
     override fun forCountry(countryCode: String) {
