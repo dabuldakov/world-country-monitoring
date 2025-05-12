@@ -7,9 +7,9 @@ CREATE TABLE country
 CREATE TABLE international_reserve
 (
     id                 BIGSERIAL PRIMARY KEY,
-    amount             BIGINT     NOT NULL,
-    foreign_exchange   BIGINT     NOT NULL,
-    monetary_gold      BIGINT     NOT NULL,
+    amount             FLOAT,
+    foreign_exchange   FLOAT,
+    monetary_gold      FLOAT,
     monetary_gold_tonn FLOAT,
     country_code       VARCHAR(3) NOT NULL,
     date               DATE       NOT NULL,

@@ -22,10 +22,10 @@ data class InternationalReserveEntity(
         generator = "InternationalReserveEntity.idSequence",
     )
     val id: Long? = null,
-    val amount: Long,
-    val foreignExchange: Long,
-    val monetaryGold: Long,
-    val monetaryGoldTonn: Double,
+    val amount: Double? = null,
+    val foreignExchange: Double? = null,
+    val monetaryGold: Double? = null,
+    val monetaryGoldTonn: Double? = null,
     val countryCode: String,
     val date: LocalDate
 )

@@ -5,6 +5,6 @@ import org.wcm.domain.model.InternationalReserve
 interface InternationalReserveAdapter {
 
     fun getById(id: Long): InternationalReserve
-
     fun getByCountryCode(countryCode: String): List<InternationalReserve>
+    fun saveAll(reserves: List<InternationalReserve>)
 }
