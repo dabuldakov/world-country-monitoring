@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.wcm.controller.PathConstant
+import org.wcm.domain.Utils
 import org.wcm.domain.model.InternationalReserve
 import org.wcm.usecase.api.InternationalReserveApi
 
@@ -35,5 +36,14 @@ class InternationalReserveController(
     @GetMapping(value = ["country/{country}"], produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getByCountry(@PathVariable country: String): ResponseEntity<List<InternationalReserve>>{
         return ResponseEntity.ok(internationalReserveApi.getByCountryCode(country))
+    }
+
+    @Operation(
+        summary = "Get reserves for all countries for year",
+        operationId = "getAllCountriesByDate"
+    )
+    @GetMapping(value = ["year/{year}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getAllCountriesByDate(@PathVariable year: String): ResponseEntity<List<InternationalReserve>>{
+        return ResponseEntity.ok(internationalReserveApi.getAllCountriesByDate(Utils.convertYearToLocalDate(year)))
     }
 }

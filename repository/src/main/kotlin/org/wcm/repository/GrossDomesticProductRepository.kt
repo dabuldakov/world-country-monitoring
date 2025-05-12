@@ -7,6 +7,7 @@ import java.time.LocalDate
 
 @Repository
 interface GrossDomesticProductRepository: JpaRepository<GrossDomesticProductEntity, Long> {
+
     fun findAllByCountryCodeOrderByDate(countryCode: String): List<GrossDomesticProductEntity>
     fun findFirstByCountryCodeAndDate(countryCode: String, date: LocalDate): GrossDomesticProductEntity?
     fun findAllByDateOrderByCurrent(date: LocalDate): List<GrossDomesticProductEntity>

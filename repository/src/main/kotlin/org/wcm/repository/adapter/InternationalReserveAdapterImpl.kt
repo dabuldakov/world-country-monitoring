@@ -7,6 +7,7 @@ import org.wcm.domain.exception.EntityNotFoundException
 import org.wcm.domain.model.InternationalReserve
 import org.wcm.repository.InternationalReserveRepository
 import org.wcm.repository.mapper.InternationalReserveMapper
+import java.time.LocalDate
 
 @Component
 class InternationalReserveAdapterImpl(
@@ -23,6 +24,11 @@ class InternationalReserveAdapterImpl(
     @Transactional(readOnly = true)
     override fun getByCountryCode(countryCode: String): List<InternationalReserve> {
         return repository.findAllByCountryCodeOrderByDate(countryCode).map { mapper.toDomain(it) }
+    }
+
+    @Transactional(readOnly = true)
+    override fun getAllCountriesByDate(date: LocalDate): List<InternationalReserve> {
+        return repository.findAllByDateOrderByAmount(date).map { mapper.toDomain(it) }
     }
 
     override fun saveAll(reserves: List<InternationalReserve>) {

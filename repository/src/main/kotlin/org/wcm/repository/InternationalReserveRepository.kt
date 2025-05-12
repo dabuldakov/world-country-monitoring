@@ -10,4 +10,5 @@ interface InternationalReserveRepository : JpaRepository<InternationalReserveEnt
 
     fun findAllByCountryCodeOrderByDate(countryCode: String): List<InternationalReserveEntity>
     fun findFirstByCountryCodeAndDate(countryCode: String, date: LocalDate): InternationalReserveEntity?
+    fun findAllByDateOrderByAmount(date: LocalDate): List<InternationalReserveEntity>
 }
