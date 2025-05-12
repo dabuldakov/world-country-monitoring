@@ -2,7 +2,6 @@ pluginManagement {
 
     plugins {
         val kotlinVersion: String by settings
-        val kotlinterVersion: String by settings
         val springBootVersion: String by settings
         val avroPluginVersion: String by settings
         kotlin("jvm") version kotlinVersion
