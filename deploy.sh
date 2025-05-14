@@ -2,7 +2,7 @@ set -e  # Прерывать при ошибках
 
 echo "🚀 Starting deploy script..."
 
-cd ../world-country-monitoring-deploy || exit
+cd ~/world-country-monitoring-deploy || exit
 
 git pull
 docker compose build
