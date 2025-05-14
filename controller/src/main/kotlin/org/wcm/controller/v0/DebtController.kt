@@ -24,7 +24,7 @@ class DebtController(
 ) {
 
     @Operation(
-        summary = "Получить долг по стране",
+        summary = "Get all debts by country",
         operationId = "getByCountry"
     )
     @GetMapping(value = ["country/{country}"], produces = [MediaType.APPLICATION_JSON_VALUE])
