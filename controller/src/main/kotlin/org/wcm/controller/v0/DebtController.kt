@@ -42,7 +42,7 @@ class DebtController(
     }
 
     @Operation(
-        summary = "Получить отношение внешнего долга к номанальному ВВП по стране",
+        summary = "Get debt to gross ratio by country",
         operationId = "getByCountry"
     )
     @GetMapping(value = ["debt-gross/country/{country}"], produces = [MediaType.APPLICATION_JSON_VALUE])
