@@ -13,11 +13,9 @@ allprojects {
     java.sourceCompatibility = javaVersion
 
     repositories {
-        mavenLocal()
-        maven { url = uri("https://nexus.gts.rus.socgen/repository/maven-public") }
+        mavenCentral()
+        google()
         gradlePluginPortal()
-        maven { url = uri("https://repo.spring.io/milestone") }
-        maven { url = uri("https://repo.spring.io/snapshot") }
     }
 
     dependencies {
