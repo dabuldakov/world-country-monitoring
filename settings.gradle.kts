@@ -13,11 +13,9 @@ pluginManagement {
 
 
     repositories {
-        maven { url = uri("https://nexus.gts.rus.socgen/repository/maven-public")}
-        maven { url = uri("https://repo.spring.io/milestone") }
-        maven { url = uri("https://repo.spring.io/snapshot") }
-        gradlePluginPortal()
         mavenCentral()
+        google()
+        gradlePluginPortal()
     }
 }
 
