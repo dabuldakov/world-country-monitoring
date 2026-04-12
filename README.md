@@ -13,3 +13,6 @@ How to start:
 After you can fill database by scheduler controller in swagger
 http://localhost:8080/swagger-ui/index.html
 
+Deploy:
+
+Just push on master, after it git runner start and deploy new version.
