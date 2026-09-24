@@ -15,6 +15,7 @@ dependencies {
 
     implementation("org.springframework.data:spring-data-jpa:${property("springBootVersion")}")
     implementation("org.springframework.boot:spring-boot-starter:${property("springBootVersion")}")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:${property("springBootVersion")}")
 }
 
 dependencies {

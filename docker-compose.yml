@@ -23,6 +23,8 @@ services:
   backend:
     build: .
     restart: unless-stopped
+    ports:
+      - "8087:8080"
     env_file:
       - .env
     environment:
