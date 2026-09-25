@@ -1,7 +1,6 @@
 package org.wcm.integration
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -39,7 +38,7 @@ class PopulationApiIntegrationTest : AbstractDatabaseIntegrationTest() {
             )
         )
 
-        mockMvc.perform(get("/api/wcm/v0/population/country/RUS"))
+        mockMvc.perform(clientGet("/api/wcm/v0/population/country/RUS"))
             .andExpect(status().isOk)
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$[1]").exists())
@@ -67,7 +66,7 @@ class PopulationApiIntegrationTest : AbstractDatabaseIntegrationTest() {
             )
         )
 
-        mockMvc.perform(get("/api/wcm/v0/population/year/2022"))
+        mockMvc.perform(clientGet("/api/wcm/v0/population/year/2022"))
             .andExpect(status().isOk)
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$[1]").exists())
@@ -79,7 +78,7 @@ class PopulationApiIntegrationTest : AbstractDatabaseIntegrationTest() {
 
     @Test
     fun `returns an empty list for an unknown country`() {
-        mockMvc.perform(get("/api/wcm/v0/population/country/XXX"))
+        mockMvc.perform(clientGet("/api/wcm/v0/population/country/XXX"))
             .andExpect(status().isOk)
             .andExpect(jsonPath("$[0]").doesNotExist())
     }

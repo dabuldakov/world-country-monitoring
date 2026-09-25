@@ -11,5 +11,8 @@ class PathConstant {
         const val DEBT = "$BASE/debt"
         const val COUNTRY = "$BASE/country"
         const val SCHEDULER = "$BASE/scheduler"
+        const val ADMIN = "$BASE/admin"
+        const val FEEDBACK = "$BASE/feedback"
+        const val VISIT = "$BASE/visits"
     }
 }

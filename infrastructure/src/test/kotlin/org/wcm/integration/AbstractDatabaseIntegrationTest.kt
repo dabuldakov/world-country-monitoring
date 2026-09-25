@@ -9,6 +9,9 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
@@ -38,6 +41,9 @@ abstract class AbstractDatabaseIntegrationTest {
             registry.add("spring.jpa.hibernate.ddl-auto") { "validate" }
             registry.add("spring.flyway.enabled") { "true" }
         }
+
+        const val CLIENT_HEADER = "X-WCM-Client"
+        const val CLIENT_KEY = "wcm-test-client"
     }
 
     @Autowired
@@ -49,5 +55,31 @@ abstract class AbstractDatabaseIntegrationTest {
     @BeforeEach
     fun clearPopulation() {
         jdbcTemplate.update("TRUNCATE TABLE population RESTART IDENTITY")
+        jdbcTemplate.update("TRUNCATE TABLE feedback RESTART IDENTITY")
+        jdbcTemplate.update("UPDATE visit_counter SET total = 0 WHERE id = 1")
+    }
+
+    protected fun clientGet(url: String): MockHttpServletRequestBuilder =
+        get(url).header(CLIENT_HEADER, CLIENT_KEY)
+
+    protected fun clientPost(url: String): MockHttpServletRequestBuilder =
+        post(url).header(CLIENT_HEADER, CLIENT_KEY)
+
+    protected fun authorized(
+        request: MockHttpServletRequestBuilder,
+        token: String
+    ): MockHttpServletRequestBuilder = request.header("Authorization", "Bearer $token")
+
+    protected fun loginAsAdmin(): String {
+        val response = mockMvc.perform(
+            clientPost("/api/wcm/v0/admin/login")
+                .contentType("application/json")
+                .content("""{"login":"admin","password":"test-admin"}""")
+        ).andExpect(org.springframework.test.web.servlet.result.MockMvcResultMatchers.status().isOk)
+            .andReturn()
+            .response
+            .contentAsString
+
+        return com.jayway.jsonpath.JsonPath.read(response, "$.token")
     }
 }

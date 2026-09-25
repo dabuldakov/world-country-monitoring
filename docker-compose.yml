@@ -33,6 +33,19 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
       TZ: ${TZ:-UTC}
+      ADMIN_LOGIN: ${ADMIN_LOGIN:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-change-me}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-dabuldakov@mail.ru}
+      ADMIN_TOKEN_SECRET: ${ADMIN_TOKEN_SECRET:-change-me-too}
+      ADMIN_TOKEN_TTL_MINUTES: ${ADMIN_TOKEN_TTL_MINUTES:-720}
+      FRONTEND_ONLY_ENABLED: ${FRONTEND_ONLY_ENABLED:-true}
+      FRONTEND_CLIENT_KEY: ${FRONTEND_CLIENT_KEY:-wcm-frontend}
+      FRONTEND_ALLOWED_ORIGINS: ${FRONTEND_ALLOWED_ORIGINS:-http://localhost:3000,http://country-monitoring.com,https://country-monitoring.com,http://www.country-monitoring.com,https://www.country-monitoring.com}
+      MAIL_HOST: ${MAIL_HOST:-smtp.mail.ru}
+      MAIL_PORT: ${MAIL_PORT:-465}
+      MAIL_USERNAME: ${MAIL_USERNAME:-dabuldakov@mail.ru}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-change_me}
+      MAIL_SSL_ENABLED: ${MAIL_SSL_ENABLED:-true}
     depends_on:
       postgres:
         condition: service_healthy

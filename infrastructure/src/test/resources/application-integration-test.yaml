@@ -1,6 +1,13 @@
 application:
   scheduling:
     update-all-countries-gdp: "0 0 0 1 1 ?"
+  frontend:
+    client-key: wcm-test-client
+  admin:
+    login: admin
+    password: test-admin
+    token-secret: test-secret
+    email: admin@example.com
 
 spring:
   jpa:
