@@ -23,3 +23,7 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter:${property("testContainersVersion")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test:${property("springBootVersion")}")
 }
+
+tasks.test {
+    systemProperty("api.version", System.getenv("DOCKER_API_VERSION") ?: "1.44")
+}

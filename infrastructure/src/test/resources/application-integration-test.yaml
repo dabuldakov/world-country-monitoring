@@ -1,0 +1,10 @@
+application:
+  scheduling:
+    update-all-countries-gdp: "0 0 0 1 1 ?"
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
