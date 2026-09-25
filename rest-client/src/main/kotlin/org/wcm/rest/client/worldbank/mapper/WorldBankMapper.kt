@@ -5,6 +5,7 @@ import org.wcm.domain.Utils
 import org.wcm.domain.model.Debt
 import org.wcm.domain.model.GrossDomesticProduct
 import org.wcm.domain.model.InternationalReserve
+import org.wcm.domain.model.Population
 import org.wcm.rest.client.worldbank.model.WorldBankModel
 
 @Component
@@ -34,6 +35,16 @@ class WorldBankMapper {
         return worldBankModel.value.map { data ->
             InternationalReserve(
                 amount = doubleValue(data.value),
+                countryCode = countryCode,
+                date = Utils.convertYearToLocalDate(data.year)
+            )
+        }
+    }
+
+    fun toDomainPopulation(worldBankModel: WorldBankModel, countryCode: String): List<Population> {
+        return worldBankModel.value.map { data ->
+            Population(
+                population = doubleValue(data.value),
                 countryCode = countryCode,
                 date = Utils.convertYearToLocalDate(data.year)
             )

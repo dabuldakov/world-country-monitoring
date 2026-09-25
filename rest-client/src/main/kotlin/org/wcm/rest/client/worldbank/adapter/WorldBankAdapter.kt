@@ -5,6 +5,7 @@ import org.wcm.domain.api.WorldBankApi
 import org.wcm.domain.model.Debt
 import org.wcm.domain.model.GrossDomesticProduct
 import org.wcm.domain.model.InternationalReserve
+import org.wcm.domain.model.Population
 import org.wcm.rest.client.worldbank.WorldBankClient
 import org.wcm.rest.client.worldbank.mapper.WorldBankMapper
 
@@ -27,5 +28,10 @@ class WorldBankAdapter(
     override fun getAllHistoryReservesAmountByCountry(countryCode: String): List<InternationalReserve> {
         return client.getAllHistoryReservesAmountByCountry(countryCode)
             ?.let { mapper.toDomainReservesAmount(it, countryCode) } ?: emptyList()
+    }
+
+    override fun getAllHistoryPopulationByCountry(countryCode: String): List<Population> {
+        return client.getAllHistoryPopulationByCountry(countryCode)
+            ?.let { mapper.toDomainPopulation(it, countryCode) } ?: emptyList()
     }
 }

@@ -12,6 +12,7 @@ class Constant {
         const val INDICATOR_GDP = "WB_WDI_NY_GDP_MKTP_CD"
         const val INDICATOR_DEPT_PERCENTAGE_GDP = "WB_CCDFS_XTDEBTY"
         const val INDICATOR_RESERVES_AMOUNT = "WB_WDI_FI_RES_TOTL_CD"
+        const val INDICATOR_POPULATION = "WB_WDI_SP_POP_TOTL"
         const val REF_AREA = "REF_AREA"
         const val skip = "skip"
     }

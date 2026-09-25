@@ -13,6 +13,7 @@ class RefillUseCase(
     private val gDPAdapter: GrossDomesticProductAdapter,
     private val debtAdapter: DebtAdapter,
     private val internationalReserveAdapter: InternationalReserveAdapter,
+    private val populationAdapter: PopulationAdapter,
 ) : RefillApi {
 
     private val logger: Logger = LoggerFactory.getLogger(RefillUseCase::class.java)
@@ -28,5 +29,6 @@ class RefillUseCase(
         worldBankApi.getAllHistoryGDPbyCountry(countryCode).let { gDPAdapter.saveAll(it) }
         worldBankApi.getAllHistoryPercentageToGDPByCountry(countryCode).let { debtAdapter.saveAll(it) }
         worldBankApi.getAllHistoryReservesAmountByCountry(countryCode).let { internationalReserveAdapter.saveAll(it) }
+        worldBankApi.getAllHistoryPopulationByCountry(countryCode).let { populationAdapter.saveAll(it) }
     }
 }

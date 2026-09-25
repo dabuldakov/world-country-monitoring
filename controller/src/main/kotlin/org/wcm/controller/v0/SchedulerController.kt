@@ -28,7 +28,7 @@ class SchedulerController(
     }
 
     @Operation(
-        summary = "update GDP, percentage Debt to GDP",
+        summary = "Update GDP, debt, reserves and population",
         operationId = "updateCountry"
     )
     @GetMapping(value = ["/update/country/{code}"])

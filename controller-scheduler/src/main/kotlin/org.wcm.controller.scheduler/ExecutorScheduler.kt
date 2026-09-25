@@ -13,7 +13,7 @@ class ExecutorScheduler(
     private val logger: Logger = LoggerFactory.getLogger(ExecutorScheduler::class.java)
 
     @Scheduled(cron = "\${application.scheduling.update-all-countries-gdp}")
-    fun updateGDPForAllCountries() {
+    fun updateWorldBankDataForAllCountries() {
         logger.info("Start update data from World Bank for all countries")
         refillApi.forAllCountries()
         logger.info("Stop update data from World Bank for all countries")
