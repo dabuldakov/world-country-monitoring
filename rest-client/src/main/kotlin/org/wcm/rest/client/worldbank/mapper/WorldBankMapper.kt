@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component
 import org.wcm.domain.Utils
 import org.wcm.domain.model.Debt
 import org.wcm.domain.model.GrossDomesticProduct
+import org.wcm.domain.model.GrossDomesticProductPerCapita
 import org.wcm.domain.model.InternationalReserve
 import org.wcm.domain.model.LifeExpectancy
 import org.wcm.domain.model.Population
@@ -16,6 +17,16 @@ class WorldBankMapper {
         return worldBankModel.value.map { data ->
             GrossDomesticProduct(
                 current = doubleValue(data.value),
+                countryCode = countryCode,
+                date = Utils.convertYearToLocalDate(data.year)
+            )
+        }
+    }
+
+    fun toDomainGDPPerCapita(worldBankModel: WorldBankModel, countryCode: String): List<GrossDomesticProductPerCapita> {
+        return worldBankModel.value.map { data ->
+            GrossDomesticProductPerCapita(
+                amount = doubleValue(data.value),
                 countryCode = countryCode,
                 date = Utils.convertYearToLocalDate(data.year)
             )

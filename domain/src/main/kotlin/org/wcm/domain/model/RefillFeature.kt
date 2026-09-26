@@ -2,6 +2,7 @@ package org.wcm.domain.model
 
 enum class RefillFeature(val key: String) {
     GDP("gdp"),
+    GDP_PER_CAPITA("gdp-per-capita"),
     DEBT("debt"),
     DEBT_AMOUNT("debt-amount"),
     RESERVES("reserves"),

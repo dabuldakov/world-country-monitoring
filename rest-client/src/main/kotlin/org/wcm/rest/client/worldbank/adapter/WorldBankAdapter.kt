@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component
 import org.wcm.domain.api.WorldBankApi
 import org.wcm.domain.model.Debt
 import org.wcm.domain.model.GrossDomesticProduct
+import org.wcm.domain.model.GrossDomesticProductPerCapita
 import org.wcm.domain.model.InternationalReserve
 import org.wcm.domain.model.LifeExpectancy
 import org.wcm.domain.model.Population
@@ -19,6 +20,11 @@ class WorldBankAdapter(
     override fun getAllHistoryGDPbyCountry(countryCode: String): List<GrossDomesticProduct> {
         return client.getAllHistoryGDPbyCountry(countryCode)
             ?.let { mapper.toDomainCurrentGDP(it, countryCode) } ?: emptyList()
+    }
+
+    override fun getAllHistoryGDPPerCapitaByCountry(countryCode: String): List<GrossDomesticProductPerCapita> {
+        return client.getAllHistoryGDPPerCapitaByCountry(countryCode)
+            ?.let { mapper.toDomainGDPPerCapita(it, countryCode) } ?: emptyList()
     }
 
     override fun getAllHistoryPercentageToGDPByCountry(countryCode: String): List<Debt> {

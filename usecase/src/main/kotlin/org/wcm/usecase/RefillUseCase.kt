@@ -12,6 +12,7 @@ class RefillUseCase(
     private val worldBankApi: WorldBankApi,
     private val countryAdapter: CountryAdapter,
     private val gDPAdapter: GrossDomesticProductAdapter,
+    private val grossDomesticProductPerCapitaAdapter: GrossDomesticProductPerCapitaAdapter,
     private val debtAdapter: DebtAdapter,
     private val internationalReserveAdapter: InternationalReserveAdapter,
     private val populationAdapter: PopulationAdapter,
@@ -42,6 +43,9 @@ class RefillUseCase(
         when (feature) {
             RefillFeature.GDP -> worldBankApi.getAllHistoryGDPbyCountry(countryCode)
                 .let { gDPAdapter.saveAll(it) }
+
+            RefillFeature.GDP_PER_CAPITA -> worldBankApi.getAllHistoryGDPPerCapitaByCountry(countryCode)
+                .let { grossDomesticProductPerCapitaAdapter.saveAll(it) }
 
             RefillFeature.DEBT -> worldBankApi.getAllHistoryPercentageToGDPByCountry(countryCode)
                 .let { debtAdapter.saveAll(it) }

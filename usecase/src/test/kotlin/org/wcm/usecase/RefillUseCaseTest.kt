@@ -6,6 +6,7 @@ import org.mockito.kotlin.whenever
 import org.wcm.domain.api.CountryAdapter
 import org.wcm.domain.api.DebtAdapter
 import org.wcm.domain.api.GrossDomesticProductAdapter
+import org.wcm.domain.api.GrossDomesticProductPerCapitaAdapter
 import org.wcm.domain.api.InternationalReserveAdapter
 import org.wcm.domain.api.LifeExpectancyAdapter
 import org.wcm.domain.api.PopulationAdapter
@@ -20,6 +21,7 @@ class RefillUseCaseTest {
     private val worldBankApi = mock<WorldBankApi>()
     private val countryAdapter = mock<CountryAdapter>()
     private val grossDomesticProductAdapter = mock<GrossDomesticProductAdapter>()
+    private val grossDomesticProductPerCapitaAdapter = mock<GrossDomesticProductPerCapitaAdapter>()
     private val debtAdapter = mock<DebtAdapter>()
     private val internationalReserveAdapter = mock<InternationalReserveAdapter>()
     private val populationAdapter = mock<PopulationAdapter>()
@@ -28,6 +30,7 @@ class RefillUseCaseTest {
         worldBankApi,
         countryAdapter,
         grossDomesticProductAdapter,
+        grossDomesticProductPerCapitaAdapter,
         debtAdapter,
         internationalReserveAdapter,
         populationAdapter,
@@ -44,6 +47,7 @@ class RefillUseCaseTest {
             )
         )
         whenever(worldBankApi.getAllHistoryGDPbyCountry("RUS")).thenReturn(emptyList())
+        whenever(worldBankApi.getAllHistoryGDPPerCapitaByCountry("RUS")).thenReturn(emptyList())
         whenever(worldBankApi.getAllHistoryPercentageToGDPByCountry("RUS")).thenReturn(emptyList())
         whenever(worldBankApi.getAllHistoryReservesAmountByCountry("RUS")).thenReturn(emptyList())
         whenever(worldBankApi.getAllHistoryPopulationByCountry("RUS")).thenReturn(populations)

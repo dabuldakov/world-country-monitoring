@@ -24,6 +24,21 @@ class WorldBankMapperTest {
     }
 
     @Test
+    fun `maps GDP per capita observations to domain values`() {
+        val model = WorldBankModel(
+            count = 1,
+            value = listOf(WorldBankValue(value = "9277.713867", year = "2015"))
+        )
+
+        val result = WorldBankMapper().toDomainGDPPerCapita(model, "RUS")
+
+        assertEquals(1, result.size)
+        assertEquals(9277.713867, result.single().amount)
+        assertEquals("RUS", result.single().countryCode)
+        assertEquals(LocalDate.of(2015, 12, 1), result.single().date)
+    }
+
+    @Test
     fun `maps life expectancy observations to domain values`() {
         val model = WorldBankModel(
             count = 1,
