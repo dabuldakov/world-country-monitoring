@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 @Configuration
 open class WebMVCConfiguration : WebMvcConfigurer {
 
-    @Value("\${application.frontend.allowed-origins:http://localhost:3000,http://country-monitoring.com,https://country-monitoring.com,http://www.country-monitoring.com,https://www.country-monitoring.com,http://countrymonitoring.ru,https://countrymonitoring.ru,http://www.countrymonitoring.ru,https://www.countrymonitoring.ru}")
+    @Value("\${application.frontend.allowed-origins:http://localhost:3000,http://country-monitoring.com,https://country-monitoring.com,http://www.country-monitoring.com,https://www.country-monitoring.com,http://countrymonitoring.ru,https://countrymonitoring.ru,http://www.countrymonitoring.ru,https://www.countrymonitoring.ru,http://89.104.66.226,https://89.104.66.226}")
     private lateinit var allowedOrigins: String
 
     override fun addCorsMappings(registry: CorsRegistry) {
