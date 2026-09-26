@@ -5,3 +5,5 @@ build
 .idea
 *.iml
 .env
+ssl_certificate
+ssl_certificate.txt

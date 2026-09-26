@@ -21,6 +21,7 @@ services:
       - wcm-net
 
   backend:
+    image: ghcr.io/dabuldakov/world-country-monitoring-backend:latest
     build: .
     restart: unless-stopped
     ports:
@@ -40,7 +41,7 @@ services:
       ADMIN_TOKEN_TTL_MINUTES: ${ADMIN_TOKEN_TTL_MINUTES:-720}
       FRONTEND_ONLY_ENABLED: ${FRONTEND_ONLY_ENABLED:-true}
       FRONTEND_CLIENT_KEY: ${FRONTEND_CLIENT_KEY:-wcm-frontend}
-      FRONTEND_ALLOWED_ORIGINS: ${FRONTEND_ALLOWED_ORIGINS:-http://localhost:3000,http://country-monitoring.com,https://country-monitoring.com,http://www.country-monitoring.com,https://www.country-monitoring.com}
+      FRONTEND_ALLOWED_ORIGINS: ${FRONTEND_ALLOWED_ORIGINS:-http://localhost:3000,http://country-monitoring.com,https://country-monitoring.com,http://www.country-monitoring.com,https://www.country-monitoring.com,http://countrymonitoring.ru,https://countrymonitoring.ru,http://www.countrymonitoring.ru,https://www.countrymonitoring.ru}
       MAIL_HOST: ${MAIL_HOST:-smtp.mail.ru}
       MAIL_PORT: ${MAIL_PORT:-465}
       MAIL_USERNAME: ${MAIL_USERNAME:-dabuldakov@mail.ru}

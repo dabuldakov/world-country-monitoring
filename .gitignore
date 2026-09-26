@@ -46,3 +46,7 @@ bin/
 
 ### Local env
 .env
+
+### SSL certificates
+ssl_certificate/
+ssl_certificate.txt
