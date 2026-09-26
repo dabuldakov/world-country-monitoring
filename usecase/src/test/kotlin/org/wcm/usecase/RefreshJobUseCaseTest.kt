@@ -10,6 +10,7 @@ import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.wcm.domain.api.CountryAdapter
+import org.wcm.domain.api.RefillStatusAdapter
 import org.wcm.domain.api.RefreshJobAdapter
 import org.wcm.domain.model.Country
 import org.wcm.domain.model.RefillFeature
@@ -26,7 +27,13 @@ class RefreshJobUseCaseTest {
     private val refreshJobAdapter = mock<RefreshJobAdapter>()
     private val refillApi = mock<RefillApi>()
     private val countryAdapter = mock<CountryAdapter>()
-    private val useCase = RefreshJobUseCase(refreshJobAdapter, refillApi, countryAdapter)
+    private val refillStatusAdapter = mock<RefillStatusAdapter>()
+    private val useCase = RefreshJobUseCase(
+        refreshJobAdapter,
+        refillApi,
+        countryAdapter,
+        refillStatusAdapter
+    )
 
     @Test
     fun `enqueues job for all countries and returns existing active job`() {

@@ -2,9 +2,11 @@ package org.wcm.usecase
 
 import org.springframework.stereotype.Component
 import org.wcm.domain.api.CountryAdapter
+import org.wcm.domain.api.RefillStatusAdapter
 import org.wcm.domain.api.RefreshJobAdapter
 import org.wcm.domain.model.RefillCountryStatus
 import org.wcm.domain.model.RefillFeature
+import org.wcm.domain.model.RefillFeatureStatus
 import org.wcm.domain.model.RefreshJob
 import org.wcm.domain.model.RefreshJobItem
 import org.wcm.usecase.api.RefillApi
@@ -15,7 +17,8 @@ import java.time.Instant
 class RefreshJobUseCase(
     private val refreshJobAdapter: RefreshJobAdapter,
     private val refillApi: RefillApi,
-    private val countryAdapter: CountryAdapter
+    private val countryAdapter: CountryAdapter,
+    private val refillStatusAdapter: RefillStatusAdapter
 ) : RefreshJobApi {
 
     override fun enqueue(feature: RefillFeature, countryCode: String?): RefreshJob {
@@ -142,13 +145,26 @@ class RefreshJobUseCase(
             processed == 0 -> "FAILED"
             else -> "PARTIAL"
         }
+        val finishedAt = Instant.now()
 
         refreshJobAdapter.saveJob(
             job.copy(
                 status = status,
                 processed = processed,
                 failed = failed,
-                finishedAt = Instant.now()
+                finishedAt = finishedAt
+            )
+        )
+
+        refillStatusAdapter.saveAll(
+            listOf(
+                RefillFeatureStatus(
+                    feature = job.feature,
+                    lastUpdatedAtEpochMillis = finishedAt.toEpochMilli(),
+                    status = status,
+                    processedCount = processed,
+                    errorMessage = if (failed > 0) "$failed country(ies) failed" else null
+                )
             )
         )
     }
