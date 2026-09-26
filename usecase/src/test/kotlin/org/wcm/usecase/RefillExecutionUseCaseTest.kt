@@ -38,7 +38,7 @@ class RefillExecutionUseCaseTest {
 
         val statuses = argumentCaptor<List<RefillFeatureStatus>>()
         verify(refillStatusAdapter).saveAll(statuses.capture())
-        assertEquals(4, statuses.firstValue.size)
+        assertEquals(RefillFeature.entries.size, statuses.firstValue.size)
     }
 
     @Test

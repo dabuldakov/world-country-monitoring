@@ -35,6 +35,15 @@ class WorldBankClient(
         }
     }
 
+    fun getAllHistoryDebtAmountByCountry(countryCode: String): WorldBankModel? {
+        return try {
+            restTemplate.getForObject(buildDebtAmountUrl(countryCode), WorldBankModel::class.java)
+        } catch (e: Exception) {
+            logger.error("Error while getAllHistoryDebtAmountByCountry $countryCode", e)
+            null
+        }
+    }
+
     fun getAllHistoryReservesAmountByCountry(countryCode: String): WorldBankModel? {
         return try {
             restTemplate.getForObject(buildReservesAmountUrl(countryCode), WorldBankModel::class.java)
@@ -67,6 +76,16 @@ class WorldBankClient(
         val queryParams = StringBuilder()
         queryParams.append("${Constant.DATABASE_ID}=${URLEncoder.encode(Constant.DATABASE_WB, "UTF-8")}&")
         queryParams.append("${Constant.INDICATOR}=${URLEncoder.encode(Constant.INDICATOR_GDP, "UTF-8")}&")
+        queryParams.append("${Constant.REF_AREA}=${URLEncoder.encode(countryCode, "UTF-8")}&")
+        queryParams.append("${Constant.skip}=0")
+
+        return URI.create("$API_URL$DATA360_PATH?$queryParams").toURL().toString()
+    }
+
+    private fun buildDebtAmountUrl(countryCode: String): String {
+        val queryParams = StringBuilder()
+        queryParams.append("${Constant.DATABASE_ID}=${URLEncoder.encode(Constant.DATABASE_WB, "UTF-8")}&")
+        queryParams.append("${Constant.INDICATOR}=${URLEncoder.encode(Constant.INDICATOR_DEBT_AMOUNT, "UTF-8")}&")
         queryParams.append("${Constant.REF_AREA}=${URLEncoder.encode(countryCode, "UTF-8")}&")
         queryParams.append("${Constant.skip}=0")
 

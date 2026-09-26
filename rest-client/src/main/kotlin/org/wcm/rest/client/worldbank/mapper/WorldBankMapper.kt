@@ -31,6 +31,16 @@ class WorldBankMapper {
         }
     }
 
+    fun toDomainDebtAmount(worldBankModel: WorldBankModel, countryCode: String): List<Debt> {
+        return worldBankModel.value.map { data ->
+            Debt(
+                foreign = doubleValue(data.value),
+                countryCode = countryCode,
+                date = Utils.convertYearToLocalDate(data.year)
+            )
+        }
+    }
+
     fun toDomainReservesAmount(worldBankModel: WorldBankModel, countryCode: String): List<InternationalReserve> {
         return worldBankModel.value.map { data ->
             InternationalReserve(

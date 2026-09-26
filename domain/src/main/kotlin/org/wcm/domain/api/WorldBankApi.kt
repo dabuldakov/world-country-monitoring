@@ -9,6 +9,7 @@ interface WorldBankApi {
 
     fun getAllHistoryGDPbyCountry(countryCode: String): List<GrossDomesticProduct>
     fun getAllHistoryPercentageToGDPByCountry(countryCode: String): List<Debt>
+    fun getAllHistoryDebtAmountByCountry(countryCode: String): List<Debt>
     fun getAllHistoryReservesAmountByCountry(countryCode: String): List<InternationalReserve>
     fun getAllHistoryPopulationByCountry(countryCode: String): List<Population>
 }

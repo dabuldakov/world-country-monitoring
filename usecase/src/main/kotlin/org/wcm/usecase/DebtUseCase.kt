@@ -18,4 +18,8 @@ class DebtUseCase(
     override fun getAllCountriesByYear(date: LocalDate): List<Debt> {
         return adapter.getAllCountriesByYear(date)
     }
+
+    override fun getAllCountriesAmountByYear(date: LocalDate): List<Debt> {
+        return adapter.getAllCountriesAmountByYear(date)
+    }
 }

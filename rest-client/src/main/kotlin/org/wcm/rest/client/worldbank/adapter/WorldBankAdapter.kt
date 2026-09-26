@@ -25,6 +25,11 @@ class WorldBankAdapter(
             ?.let { mapper.toDomainPercentageToGDP(it, countryCode) } ?: emptyList()
     }
 
+    override fun getAllHistoryDebtAmountByCountry(countryCode: String): List<Debt> {
+        return client.getAllHistoryDebtAmountByCountry(countryCode)
+            ?.let { mapper.toDomainDebtAmount(it, countryCode) } ?: emptyList()
+    }
+
     override fun getAllHistoryReservesAmountByCountry(countryCode: String): List<InternationalReserve> {
         return client.getAllHistoryReservesAmountByCountry(countryCode)
             ?.let { mapper.toDomainReservesAmount(it, countryCode) } ?: emptyList()

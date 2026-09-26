@@ -6,4 +6,5 @@ import java.time.LocalDate
 interface DebtApi {
     fun getByCountryCode(countryCode: String): List<Debt>
     fun getAllCountriesByYear(date: LocalDate): List<Debt>
+    fun getAllCountriesAmountByYear(date: LocalDate): List<Debt>
 }

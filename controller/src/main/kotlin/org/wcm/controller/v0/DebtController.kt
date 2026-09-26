@@ -49,4 +49,22 @@ class DebtController(
     fun getDebtGrossByCountry(@PathVariable country: String): ResponseEntity<List<DebtGross>> {
         return ResponseEntity.ok(debtGrossApi.getByCountryFromDataBase(country))
     }
+
+    @Operation(
+        summary = "Get debt amount by country",
+        operationId = "getDebtAmountByCountry"
+    )
+    @GetMapping(value = ["debt-amount/country/{country}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getDebtAmountByCountry(@PathVariable country: String): ResponseEntity<List<Debt>> {
+        return ResponseEntity.ok(api.getByCountryCode(country))
+    }
+
+    @Operation(
+        summary = "Get debt amount for all countries by year",
+        operationId = "getAllCountriesAmountByYear"
+    )
+    @GetMapping(value = ["debt-amount/year/{year}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun getAllCountriesAmountByYear(@PathVariable year: String): ResponseEntity<List<Debt>> {
+        return ResponseEntity.ok(api.getAllCountriesAmountByYear(Utils.convertYearToLocalDate(year)))
+    }
 }

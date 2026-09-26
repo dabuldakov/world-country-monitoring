@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.wcm.domain.api.EmailSender
+import org.wcm.domain.model.RefillFeature
 import org.wcm.rest.client.worldbank.WorldBankClient
 import org.wcm.rest.client.worldbank.model.WorldBankModel
 import org.wcm.rest.client.worldbank.model.WorldBankValue
@@ -67,7 +68,7 @@ class AdminIntegrationTest : AbstractDatabaseIntegrationTest() {
 
         mockMvc.perform(authorized(clientGet("/api/wcm/v0/admin/refill/status"), token))
             .andExpect(status().isOk)
-            .andExpect(jsonPath("$.length()").value(4))
+            .andExpect(jsonPath("$.length()").value(RefillFeature.entries.size))
 
         mockMvc.perform(authorized(clientPost("/api/wcm/v0/admin/refill/population/country/RUS"), token))
             .andExpect(status().isOk)

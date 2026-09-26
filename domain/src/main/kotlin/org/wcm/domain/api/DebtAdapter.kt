@@ -7,5 +7,6 @@ interface DebtAdapter {
 
     fun getByCountryCode(countryCode: String): List<Debt>
     fun getAllCountriesByYear(data: LocalDate): List<Debt>
+    fun getAllCountriesAmountByYear(data: LocalDate): List<Debt>
     fun saveAll(debts: List<Debt>)
 }

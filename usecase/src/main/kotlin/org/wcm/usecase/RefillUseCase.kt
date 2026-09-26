@@ -45,6 +45,9 @@ class RefillUseCase(
             RefillFeature.DEBT -> worldBankApi.getAllHistoryPercentageToGDPByCountry(countryCode)
                 .let { debtAdapter.saveAll(it) }
 
+            RefillFeature.DEBT_AMOUNT -> worldBankApi.getAllHistoryDebtAmountByCountry(countryCode)
+                .let { debtAdapter.saveAll(it) }
+
             RefillFeature.RESERVES -> worldBankApi.getAllHistoryReservesAmountByCountry(countryCode)
                 .let { internationalReserveAdapter.saveAll(it) }
 

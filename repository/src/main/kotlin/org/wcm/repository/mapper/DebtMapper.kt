@@ -32,4 +32,13 @@ class DebtMapper {
             countryCode = entity.countryCode,
             date = entity.date
         )
+
+    fun updateForeign(entity: DebtEntity, foreign: Double) =
+        DebtEntity(
+            id = entity.id,
+            foreign = foreign,
+            percentageToGDP = entity.percentageToGDP,
+            countryCode = entity.countryCode,
+            date = entity.date
+        )
 }
