@@ -56,6 +56,7 @@ abstract class AbstractDatabaseIntegrationTest {
     fun clearPopulation() {
         jdbcTemplate.update("TRUNCATE TABLE population RESTART IDENTITY")
         jdbcTemplate.update("TRUNCATE TABLE feedback RESTART IDENTITY")
+        jdbcTemplate.update("TRUNCATE TABLE data_refresh_status")
         jdbcTemplate.update("UPDATE visit_counter SET total = 0 WHERE id = 1")
     }
 

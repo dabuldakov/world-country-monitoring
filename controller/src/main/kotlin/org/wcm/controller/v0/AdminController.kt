@@ -17,6 +17,8 @@ import org.wcm.controller.dto.LoginResponse
 import org.wcm.controller.dto.VisitResponse
 import org.wcm.domain.model.Feedback
 import org.wcm.domain.model.RefillExecutionResult
+import org.wcm.domain.model.RefillFeature
+import org.wcm.domain.model.RefillFeatureStatus
 import org.wcm.usecase.api.AdminAuthApi
 import org.wcm.usecase.api.FeedbackApi
 import org.wcm.usecase.api.RefillExecutionApi
@@ -65,4 +67,28 @@ class AdminController(
     @PostMapping(value = ["/refill/country/{code}"])
     fun refillCountry(@PathVariable code: String): ResponseEntity<RefillExecutionResult> =
         ResponseEntity.ok(refillExecutionApi.updateCountry(code))
+
+    @Operation(summary = "Get last update status for each feature", operationId = "adminRefillStatuses")
+    @GetMapping(value = ["/refill/status"])
+    fun getRefillStatuses(): ResponseEntity<List<RefillFeatureStatus>> =
+        ResponseEntity.ok(refillExecutionApi.featureStatuses())
+
+    @Operation(summary = "Update one feature for all countries", operationId = "adminRefillFeatureAll")
+    @PostMapping(value = ["/refill/{feature}/all"])
+    fun refillFeatureAll(@PathVariable feature: String): ResponseEntity<RefillExecutionResult> {
+        val parsed = RefillFeature.fromKey(feature)
+            ?: return ResponseEntity.badRequest().build()
+        return ResponseEntity.ok(refillExecutionApi.updateFeatureAllCountries(parsed))
+    }
+
+    @Operation(summary = "Update one feature for one country", operationId = "adminRefillFeatureCountry")
+    @PostMapping(value = ["/refill/{feature}/country/{code}"])
+    fun refillFeatureCountry(
+        @PathVariable feature: String,
+        @PathVariable code: String
+    ): ResponseEntity<RefillExecutionResult> {
+        val parsed = RefillFeature.fromKey(feature)
+            ?: return ResponseEntity.badRequest().build()
+        return ResponseEntity.ok(refillExecutionApi.updateFeatureCountry(parsed, code))
+    }
 }

@@ -56,6 +56,17 @@ class AdminIntegrationTest : AbstractDatabaseIntegrationTest() {
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.operation").value("RUS"))
             .andExpect(jsonPath("$.status").value("SUCCESS"))
+
+        mockMvc.perform(authorized(clientGet("/api/wcm/v0/admin/refill/status"), token))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.length()").value(4))
+
+        mockMvc.perform(authorized(clientPost("/api/wcm/v0/admin/refill/population/country/RUS"), token))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.status").value("SUCCESS"))
+
+        mockMvc.perform(authorized(clientPost("/api/wcm/v0/admin/refill/unknown/all"), token))
+            .andExpect(status().isBadRequest)
     }
 
     @Test

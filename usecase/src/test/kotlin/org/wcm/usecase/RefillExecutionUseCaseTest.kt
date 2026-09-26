@@ -1,11 +1,15 @@
 package org.wcm.usecase
 
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.wcm.domain.api.CountryAdapter
+import org.wcm.domain.api.RefillStatusAdapter
 import org.wcm.domain.model.Country
+import org.wcm.domain.model.RefillFeature
+import org.wcm.domain.model.RefillFeatureStatus
 import org.wcm.usecase.api.RefillApi
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -15,10 +19,11 @@ class RefillExecutionUseCaseTest {
 
     private val refillApi = mock<RefillApi>()
     private val countryAdapter = mock<CountryAdapter>()
-    private val useCase = RefillExecutionUseCase(refillApi, countryAdapter)
+    private val refillStatusAdapter = mock<RefillStatusAdapter>()
+    private val useCase = RefillExecutionUseCase(refillApi, countryAdapter, refillStatusAdapter)
 
     @Test
-    fun `records successful full refill`() {
+    fun `records successful full refill and statuses for all features`() {
         whenever(countryAdapter.getAll()).thenReturn(
             listOf(Country("RUS", "Russia"), Country("USA", "United States"))
         )
@@ -30,6 +35,25 @@ class RefillExecutionUseCaseTest {
         assertEquals("all", result.operation)
         verify(refillApi).forAllCountries()
         assertSame(result, useCase.lastResult())
+
+        val statuses = argumentCaptor<List<RefillFeatureStatus>>()
+        verify(refillStatusAdapter).saveAll(statuses.capture())
+        assertEquals(4, statuses.firstValue.size)
+    }
+
+    @Test
+    fun `updates only the requested feature`() {
+        whenever(countryAdapter.getAll()).thenReturn(listOf(Country("RUS", "Russia")))
+
+        val result = useCase.updateFeatureCountry(RefillFeature.POPULATION, "RUS")
+
+        assertEquals("SUCCESS", result.status)
+        assertEquals("population:RUS", result.operation)
+        verify(refillApi).forCountry(RefillFeature.POPULATION, "RUS")
+
+        val statuses = argumentCaptor<List<RefillFeatureStatus>>()
+        verify(refillStatusAdapter).saveAll(statuses.capture())
+        assertEquals("population", statuses.firstValue.single().feature)
     }
 
     @Test
