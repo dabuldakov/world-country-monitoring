@@ -46,6 +46,9 @@ services:
       MAIL_USERNAME: ${MAIL_USERNAME:-dabuldakov@mail.ru}
       MAIL_PASSWORD: ${MAIL_PASSWORD:-change_me}
       MAIL_SSL_ENABLED: ${MAIL_SSL_ENABLED:-true}
+      REFILL_WORKER_ENABLED: ${REFILL_WORKER_ENABLED:-true}
+      REFILL_WORKER_DELAY_MS: ${REFILL_WORKER_DELAY_MS:-5000}
+      MAXIMUM_POOL_SIZE_DB: ${MAXIMUM_POOL_SIZE_DB:-10}
     depends_on:
       postgres:
         condition: service_healthy

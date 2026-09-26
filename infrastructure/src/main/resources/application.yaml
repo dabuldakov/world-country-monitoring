@@ -2,6 +2,10 @@ application:
   swaggerApi: ${SWAGGER_API_ACCESS:true}
   scheduling:
     update-all-countries-gdp: "0 0 12 1 * ?"
+  refill:
+    worker:
+      enabled: ${REFILL_WORKER_ENABLED:true}
+      delay-ms: ${REFILL_WORKER_DELAY_MS:5000}
   admin:
     login: ${ADMIN_LOGIN:admin}
     password: ${ADMIN_PASSWORD:change-me}
@@ -34,7 +38,7 @@ spring:
     url: ${POSTGRES_URL:jdbc:postgresql://0.0.0.0:5432/}
     driver-class-name: org.postgresql.Driver
     hikari:
-      maximum-pool-size: ${MAXIMUM_POOL_SIZE_DB:1}
+      maximum-pool-size: ${MAXIMUM_POOL_SIZE_DB:10}
       register-mbeans: true
   jpa:
     database: postgresql

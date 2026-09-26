@@ -3,6 +3,9 @@ application:
     update-all-countries-gdp: "0 0 0 1 1 ?"
   frontend:
     client-key: wcm-test-client
+  refill:
+    worker:
+      enabled: false
   admin:
     login: admin
     password: test-admin

@@ -10,18 +10,23 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.wcm.controller.PathConstant
 import org.wcm.controller.dto.LoginRequest
 import org.wcm.controller.dto.LoginResponse
+import org.wcm.controller.dto.RefreshJobRequest
 import org.wcm.controller.dto.VisitResponse
 import org.wcm.domain.model.Feedback
+import org.wcm.domain.model.RefillCountryStatus
 import org.wcm.domain.model.RefillExecutionResult
 import org.wcm.domain.model.RefillFeature
 import org.wcm.domain.model.RefillFeatureStatus
+import org.wcm.domain.model.RefreshJob
 import org.wcm.usecase.api.AdminAuthApi
 import org.wcm.usecase.api.FeedbackApi
 import org.wcm.usecase.api.RefillExecutionApi
+import org.wcm.usecase.api.RefreshJobApi
 import org.wcm.usecase.api.VisitApi
 
 @Tag(name = "AdminController_v0", description = "Admin cabinet controller v0")
@@ -31,7 +36,8 @@ class AdminController(
     private val adminAuthApi: AdminAuthApi,
     private val feedbackApi: FeedbackApi,
     private val visitApi: VisitApi,
-    private val refillExecutionApi: RefillExecutionApi
+    private val refillExecutionApi: RefillExecutionApi,
+    private val refreshJobApi: RefreshJobApi
 ) {
 
     @Operation(summary = "Login to admin cabinet", operationId = "adminLogin")
@@ -90,5 +96,52 @@ class AdminController(
         val parsed = RefillFeature.fromKey(feature)
             ?: return ResponseEntity.badRequest().build()
         return ResponseEntity.ok(refillExecutionApi.updateFeatureCountry(parsed, code))
+    }
+
+    @Operation(summary = "Create refresh job", operationId = "adminCreateRefreshJob")
+    @PostMapping(value = ["/refill/jobs"])
+    fun createRefreshJob(@Valid @RequestBody request: RefreshJobRequest): ResponseEntity<RefreshJob> {
+        val feature = RefillFeature.fromKey(request.feature)
+            ?: return ResponseEntity.badRequest().build()
+        return ResponseEntity.ok(refreshJobApi.enqueue(feature, request.countryCode))
+    }
+
+    @Operation(summary = "List refresh jobs", operationId = "adminListRefreshJobs")
+    @GetMapping(value = ["/refill/jobs"])
+    fun listRefreshJobs(
+        @RequestParam(required = false) feature: String?,
+        @RequestParam(required = false) status: String?
+    ): ResponseEntity<List<RefreshJob>> {
+        val parsedFeature = feature?.let { RefillFeature.fromKey(it) }
+        if (feature != null && parsedFeature == null) {
+            return ResponseEntity.badRequest().build()
+        }
+        return ResponseEntity.ok(refreshJobApi.list(parsedFeature, status))
+    }
+
+    @Operation(summary = "Get refresh job", operationId = "adminGetRefreshJob")
+    @GetMapping(value = ["/refill/jobs/{id}"])
+    fun getRefreshJob(@PathVariable id: Long): ResponseEntity<RefreshJob> {
+        val job = refreshJobApi.get(id) ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(job)
+    }
+
+    @Operation(summary = "Retry failed countries", operationId = "adminRetryFailedRefreshJob")
+    @PostMapping(value = ["/refill/jobs/{id}/retry"])
+    fun retryFailedRefreshJob(@PathVariable id: Long): ResponseEntity<RefreshJob> {
+        val job = refreshJobApi.retryFailed(id) ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(job)
+    }
+
+    @Operation(summary = "Get country refresh statuses", operationId = "adminCountryRefreshStatuses")
+    @GetMapping(value = ["/refill/country-status"])
+    fun getCountryStatuses(
+        @RequestParam(required = false) feature: String?
+    ): ResponseEntity<List<RefillCountryStatus>> {
+        val parsedFeature = feature?.let { RefillFeature.fromKey(it) }
+        if (feature != null && parsedFeature == null) {
+            return ResponseEntity.badRequest().build()
+        }
+        return ResponseEntity.ok(refreshJobApi.countryStatuses(parsedFeature))
     }
 }

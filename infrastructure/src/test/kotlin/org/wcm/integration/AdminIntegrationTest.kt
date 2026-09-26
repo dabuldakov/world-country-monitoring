@@ -1,6 +1,9 @@
 package org.wcm.integration
 
+import com.jayway.jsonpath.JsonPath
+import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.whenever
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -10,9 +13,14 @@ import org.wcm.domain.api.EmailSender
 import org.wcm.rest.client.worldbank.WorldBankClient
 import org.wcm.rest.client.worldbank.model.WorldBankModel
 import org.wcm.rest.client.worldbank.model.WorldBankValue
+import org.wcm.usecase.api.RefreshJobApi
 import kotlin.test.Test
+import kotlin.test.assertNotEquals
 
 class AdminIntegrationTest : AbstractDatabaseIntegrationTest() {
+
+    @Autowired
+    private lateinit var refreshJobApi: RefreshJobApi
 
     @MockBean
     private lateinit var emailSender: EmailSender
@@ -67,6 +75,43 @@ class AdminIntegrationTest : AbstractDatabaseIntegrationTest() {
 
         mockMvc.perform(authorized(clientPost("/api/wcm/v0/admin/refill/unknown/all"), token))
             .andExpect(status().isBadRequest)
+    }
+
+    @Test
+    fun `feature job records failure and retry queues failed country`() {
+        val token = loginAsAdmin()
+        doThrow(RuntimeException("world bank down"))
+            .whenever(worldBankClient).getAllHistoryGDPbyCountry("RUS")
+
+        val jobJson = mockMvc.perform(
+            authorized(clientPost("/api/wcm/v0/admin/refill/jobs"), token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""{"feature":"gdp","countryCode":"RUS"}""")
+        )
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.status").value("QUEUED"))
+            .andReturn()
+            .response
+            .contentAsString
+        val jobId = JsonPath.read<Number>(jobJson, "$.id").toLong()
+
+        refreshJobApi.processNextJob()
+
+        mockMvc.perform(authorized(clientGet("/api/wcm/v0/admin/refill/jobs/$jobId"), token))
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$.status").value("PARTIAL"))
+            .andExpect(jsonPath("$.failed").value(1))
+
+        val retryJson = mockMvc.perform(
+            authorized(clientPost("/api/wcm/v0/admin/refill/jobs/$jobId/retry"), token)
+        )
+            .andExpect(status().isOk)
+            .andReturn()
+            .response
+            .contentAsString
+        val retryId = JsonPath.read<Number>(retryJson, "$.id").toLong()
+
+        assertNotEquals(jobId, retryId)
     }
 
     @Test

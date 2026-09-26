@@ -57,6 +57,7 @@ abstract class AbstractDatabaseIntegrationTest {
         jdbcTemplate.update("TRUNCATE TABLE population RESTART IDENTITY")
         jdbcTemplate.update("TRUNCATE TABLE feedback RESTART IDENTITY")
         jdbcTemplate.update("TRUNCATE TABLE data_refresh_status")
+        jdbcTemplate.update("TRUNCATE TABLE refresh_job_item, refresh_job, data_refresh_country_status RESTART IDENTITY CASCADE")
         jdbcTemplate.update("UPDATE visit_counter SET total = 0 WHERE id = 1")
     }
 
