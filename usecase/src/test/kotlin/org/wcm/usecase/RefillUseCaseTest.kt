@@ -7,6 +7,7 @@ import org.wcm.domain.api.CountryAdapter
 import org.wcm.domain.api.DebtAdapter
 import org.wcm.domain.api.GrossDomesticProductAdapter
 import org.wcm.domain.api.InternationalReserveAdapter
+import org.wcm.domain.api.LifeExpectancyAdapter
 import org.wcm.domain.api.PopulationAdapter
 import org.wcm.domain.api.WorldBankApi
 import org.wcm.domain.model.Country
@@ -22,13 +23,15 @@ class RefillUseCaseTest {
     private val debtAdapter = mock<DebtAdapter>()
     private val internationalReserveAdapter = mock<InternationalReserveAdapter>()
     private val populationAdapter = mock<PopulationAdapter>()
+    private val lifeExpectancyAdapter = mock<LifeExpectancyAdapter>()
     private val useCase = RefillUseCase(
         worldBankApi,
         countryAdapter,
         grossDomesticProductAdapter,
         debtAdapter,
         internationalReserveAdapter,
-        populationAdapter
+        populationAdapter,
+        lifeExpectancyAdapter
     )
 
     @Test
@@ -44,6 +47,7 @@ class RefillUseCaseTest {
         whenever(worldBankApi.getAllHistoryPercentageToGDPByCountry("RUS")).thenReturn(emptyList())
         whenever(worldBankApi.getAllHistoryReservesAmountByCountry("RUS")).thenReturn(emptyList())
         whenever(worldBankApi.getAllHistoryPopulationByCountry("RUS")).thenReturn(populations)
+        whenever(worldBankApi.getAllHistoryLifeExpectancyByCountry("RUS")).thenReturn(emptyList())
 
         useCase.forCountry("RUS")
 

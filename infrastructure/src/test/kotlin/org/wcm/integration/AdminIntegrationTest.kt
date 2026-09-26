@@ -146,6 +146,12 @@ class AdminIntegrationTest : AbstractDatabaseIntegrationTest() {
                 value = listOf(WorldBankValue(value = "143513328", year = "2025"))
             )
         )
+        whenever(worldBankClient.getAllHistoryLifeExpectancyByCountry("RUS")).thenReturn(
+            WorldBankModel(
+                count = 1,
+                value = listOf(WorldBankValue(value = "71.183415", year = "2020"))
+            )
+        )
     }
 
     private fun emptyResponse() = WorldBankModel(count = 0, value = emptyList())

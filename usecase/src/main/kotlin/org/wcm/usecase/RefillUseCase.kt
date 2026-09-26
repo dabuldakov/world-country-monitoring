@@ -15,6 +15,7 @@ class RefillUseCase(
     private val debtAdapter: DebtAdapter,
     private val internationalReserveAdapter: InternationalReserveAdapter,
     private val populationAdapter: PopulationAdapter,
+    private val lifeExpectancyAdapter: LifeExpectancyAdapter,
 ) : RefillApi {
 
     private val logger: Logger = LoggerFactory.getLogger(RefillUseCase::class.java)
@@ -53,6 +54,9 @@ class RefillUseCase(
 
             RefillFeature.POPULATION -> worldBankApi.getAllHistoryPopulationByCountry(countryCode)
                 .let { populationAdapter.saveAll(it) }
+
+            RefillFeature.LIFE_EXPECTANCY -> worldBankApi.getAllHistoryLifeExpectancyByCountry(countryCode)
+                .let { lifeExpectancyAdapter.saveAll(it) }
         }
     }
 }

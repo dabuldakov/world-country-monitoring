@@ -24,6 +24,21 @@ class WorldBankMapperTest {
     }
 
     @Test
+    fun `maps life expectancy observations to domain values`() {
+        val model = WorldBankModel(
+            count = 1,
+            value = listOf(WorldBankValue(value = "71.183415", year = "2015"))
+        )
+
+        val result = WorldBankMapper().toDomainLifeExpectancy(model, "RUS")
+
+        assertEquals(1, result.size)
+        assertEquals(71.183415, result.single().years)
+        assertEquals("RUS", result.single().countryCode)
+        assertEquals(LocalDate.of(2015, 12, 1), result.single().date)
+    }
+
+    @Test
     fun `maps population observations to domain values`() {
         val model = WorldBankModel(
             count = 1,

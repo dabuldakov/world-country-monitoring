@@ -5,6 +5,7 @@ import org.wcm.domain.Utils
 import org.wcm.domain.model.Debt
 import org.wcm.domain.model.GrossDomesticProduct
 import org.wcm.domain.model.InternationalReserve
+import org.wcm.domain.model.LifeExpectancy
 import org.wcm.domain.model.Population
 import org.wcm.rest.client.worldbank.model.WorldBankModel
 
@@ -55,6 +56,16 @@ class WorldBankMapper {
         return worldBankModel.value.map { data ->
             Population(
                 population = doubleValue(data.value),
+                countryCode = countryCode,
+                date = Utils.convertYearToLocalDate(data.year)
+            )
+        }
+    }
+
+    fun toDomainLifeExpectancy(worldBankModel: WorldBankModel, countryCode: String): List<LifeExpectancy> {
+        return worldBankModel.value.map { data ->
+            LifeExpectancy(
+                years = doubleValue(data.value),
                 countryCode = countryCode,
                 date = Utils.convertYearToLocalDate(data.year)
             )

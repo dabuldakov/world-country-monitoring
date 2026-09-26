@@ -7,6 +7,7 @@ class PathConstant {
         const val INTERNATIONAL_RESERVE = "$BASE/international-reserve"
         const val GROSS_DOMESTIC_PRODUCT = "$BASE/gross-domestic-product"
         const val POPULATION = "$BASE/population"
+        const val LIFE_EXPECTANCY = "$BASE/life-expectancy"
         const val MONEY_SUPPLY = "$BASE/money-supply"
         const val DEBT = "$BASE/debt"
         const val COUNTRY = "$BASE/country"

@@ -5,7 +5,8 @@ enum class RefillFeature(val key: String) {
     DEBT("debt"),
     DEBT_AMOUNT("debt-amount"),
     RESERVES("reserves"),
-    POPULATION("population");
+    POPULATION("population"),
+    LIFE_EXPECTANCY("life-expectancy");
 
     companion object {
         fun fromKey(key: String): RefillFeature? =
